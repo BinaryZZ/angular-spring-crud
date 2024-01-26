@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Course } from '../model/course';
 import { AppMaterialModule } from '../../shared/app-material/app-material.module';
+import { Course } from '../model/course';
+import { CoursesService } from './../services/courses.service';
 
 @Component({
   selector: 'app-courses',
@@ -12,10 +13,16 @@ import { AppMaterialModule } from '../../shared/app-material/app-material.module
 })
 export class CoursesComponent implements OnInit {
 
-  courses: Course[] = [
-    { _id: '1', name: 'Angular', category: 'front-end'}
-  ];
+  courses: Course[] = [];
   displayedColumns = ['name', 'category'];
+
+  //coursesService: CoursesService;
+
+  constructor(private coursesService: CoursesService ){
+    //this.coursesService = new CoursesService();
+    this.courses = this.coursesService.list();
+
+  }
 
   ngOnInit(): void {
     //throw new Error('Method not implemented.');
